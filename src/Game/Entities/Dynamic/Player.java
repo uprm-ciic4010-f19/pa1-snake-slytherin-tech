@@ -57,6 +57,15 @@ public class Player {
             direction="Left";
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)){
             direction="Right";
+        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
+            Eat();
+            handler.getWorld().appleOnBoard=true;
+        }
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_PLUS)){
+            moveCounter++;
+        }
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
+            moveCounter--;
         }
 
     }
@@ -96,11 +105,7 @@ public class Player {
                 break;
         }
         handler.getWorld().playerLocation[xCoord][yCoord]=true;
-
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
-            Eat();
-            handler.getWorld().appleOnBoard=true;
-        }
+        
         if(handler.getWorld().appleLocation[xCoord][yCoord]){
             Eat();
         }

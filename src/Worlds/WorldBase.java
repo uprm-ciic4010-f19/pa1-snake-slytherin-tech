@@ -50,7 +50,7 @@ public abstract class WorldBase {
 
 
     }
-
+    
     public void render(Graphics g){
 
         for (int i = 0; i <= 800; i = i + GridPixelsize) {
@@ -58,7 +58,7 @@ public abstract class WorldBase {
             g.setColor(invisible);
             g.drawLine(0, i, handler.getWidth() , i);
             g.drawLine(i,0,i,handler.getHeight());
-
+            
         }
 
 
