@@ -180,7 +180,7 @@ public class GameSetUp implements Runnable {
             State.getState().render(g);
         
         g.setColor(new Color(0,0,0));
-        g.setFont(new Font("Times New Roman",Font.BOLD,20));
+        g.setFont(new Font("Arial",Font.BOLD,40));
         g.drawString("Score: ", 10, 20);
 
 
