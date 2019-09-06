@@ -153,6 +153,7 @@ public class GameSetUp implements Runnable {
         stop();
 
     }
+  
 
     private void tick(){
         //checks for key types and manages them

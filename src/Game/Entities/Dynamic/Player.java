@@ -72,6 +72,11 @@ public class Player {
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
             //handler.getGame().gameState.setState(PauseState);
         }
+        
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
+            new Tail(this.xCoord, this.yCoord, handler);
+            lenght++;
+        }
 
     }
 
@@ -263,7 +268,7 @@ public class Player {
         }
     }
 
-    public boolean isJustAte() {
+    public boolean getJustAte() {
         return justAte;
     }
 
