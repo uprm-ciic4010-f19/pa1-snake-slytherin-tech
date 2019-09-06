@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+//import Game.GameStates.PauseState;
+
 /**
  * Created by AlexVR on 7/2/2018.
  */
@@ -24,8 +26,8 @@ public class Player {
 
     public Player(Handler handler){
         this.handler = handler;
-        xCoord = 0;
-        yCoord = 0;
+        xCoord = 30;
+        yCoord = 30;
         moveCounter = 0;
         direction= "Right";
         justAte = false;
@@ -39,23 +41,23 @@ public class Player {
             checkCollisionAndMove();
             moveCounter=0;
         }
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)){
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)&&direction!="Down"){
             direction="Up";
-        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)){
+        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)&&direction!="Up"){
             direction="Down";
-        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)){
+        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)&&direction!="Right"){
             direction="Left";
-        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)){
+        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)&&direction!="Left"){
             direction="Right";
         }
         
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)){
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)&&direction!="Down"){
             direction="Up";
-        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)){
+        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)&&direction!="Up"){
             direction="Down";
-        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)){
+        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)&&direction!="Right"){
             direction="Left";
-        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)){
+        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)&&direction!="Left"){
             direction="Right";
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
             Eat();
@@ -66,6 +68,9 @@ public class Player {
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
             moveCounter--;
+        }
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
+            //handler.getGame().gameState.setState(PauseState);
         }
 
     }
@@ -131,11 +136,12 @@ public class Player {
                             handler.getWorld().GridPixelsize,
                             handler.getWorld().GridPixelsize);
                 }
+                g.setColor(new Color(0,0,0));
+                g.setFont(new Font("OCR A Extended",Font.BOLD,35));
+                g.drawString("Score: ", 10, 30);
 
             }
-        }
-
-
+        } 
     }
 
     public void Eat(){

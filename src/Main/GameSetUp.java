@@ -178,11 +178,6 @@ public class GameSetUp implements Runnable {
         g.drawImage(loading ,0,0,width,height,null);
         if(State.getState() != null)
             State.getState().render(g);
-        
-        g.setColor(new Color(0,0,0));
-        g.setFont(new Font("Times New Roman",Font.BOLD,20));
-        g.drawString("Score: ", 10, 20);
-
 
         //End Drawing!
         bs.show();
