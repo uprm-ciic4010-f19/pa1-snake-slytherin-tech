@@ -21,6 +21,7 @@ public class Player {
     public int yCoord;
 
     public int moveCounter;
+    public int speed = 5;
 
     public String direction;//is your first name one?
 
@@ -37,10 +38,28 @@ public class Player {
 
     public void tick(){
         moveCounter++;
-        if(moveCounter>=5) {
+        if(moveCounter>= speed ) {
             checkCollisionAndMove();
             moveCounter=0;
         }
+            
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)){
+            speed = speed - 1; 
+            if (speed < 0) {
+            	speed = 0;
+            }
+            }
+        System.out.println(speed);
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
+            speed = speed + 1; 
+            if ( speed > 15) {
+            	speed = 15;
+            }
+            
+        }
+        System.out.println(speed);
+        
+        
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)&&direction!="Down"){
             direction="Up";
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)&&direction!="Up"){
@@ -62,12 +81,6 @@ public class Player {
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
             Eat();
             handler.getWorld().appleOnBoard=true;
-        }
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_PLUS)){
-            moveCounter++;
-        }
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
-            moveCounter--;
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
             //handler.getGame().gameState.setState(PauseState);
