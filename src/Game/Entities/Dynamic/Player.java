@@ -6,6 +6,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+import Game.GameStates.PauseState;
+import Game.GameStates.State;
+
 //import Game.GameStates.PauseState;
 
 /**
@@ -21,6 +24,8 @@ public class Player {
     public int yCoord;
 
     public int moveCounter;
+    
+    public double score = 0;
 
     public String direction;//is your first name one?
 
@@ -64,14 +69,14 @@ public class Player {
             handler.getWorld().appleOnBoard=true;
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_PLUS)){
-            moveCounter++;
+            //moveCounter++;
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
-            moveCounter--;
+            //moveCounter--;
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
-            //handler.getGame().gameState.setState(PauseState);
-        }
+        	State.setState(handler.getGame().pauseState);
+            }
 
     }
 
@@ -113,6 +118,7 @@ public class Player {
         
         if(handler.getWorld().appleLocation[xCoord][yCoord]){
             Eat();
+            score += Math.sqrt(2*score+1);
         }
 
         if(!handler.getWorld().body.isEmpty()) {
@@ -126,23 +132,33 @@ public class Player {
     public void render(Graphics g,Boolean[][] playeLocation){
         //Random r = new Random();
         Color Green = new Color (0,128,0);
+        Color Red = new Color (250,0,0);
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
                 g.setColor(Green);
 
-                if(playeLocation[i][j]||handler.getWorld().appleLocation[i][j]){
+                if(playeLocation[i][j]){
                     g.fillRect((i*handler.getWorld().GridPixelsize),
                             (j*handler.getWorld().GridPixelsize),
                             handler.getWorld().GridPixelsize,
                             handler.getWorld().GridPixelsize);
                 }
-                g.setColor(new Color(0,0,0));
+                if(handler.getWorld().appleLocation[i][j]) {
+                	g.setColor(Red);
+                	g.fillRect((i*handler.getWorld().GridPixelsize),
+                            (j*handler.getWorld().GridPixelsize),
+                            handler.getWorld().GridPixelsize,
+                            handler.getWorld().GridPixelsize);
+                	
+                }
+}
+                g.setColor(Color.white);
                 g.setFont(new Font("OCR A Extended",Font.BOLD,35));
-                g.drawString("Score: ", 10, 30);
+                g.drawString("Score: " + (int)score, 10, 30);
 
             }
         } 
-    }
+    
 
     public void Eat(){
         lenght++;

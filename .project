@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>res/Sheets/gameIcon.png</name>
+			<type>1</type>
+			<location>C:/Users/chris/Desktop/pa1-snake-slytherin-tech-master/res/Sheets/gameIcon.png</location>
+		</link>
+	</linkedResources>
 </projectDescription>
