@@ -38,7 +38,7 @@ public class Player {
 
     public void tick(){
         moveCounter++;
-        if(moveCounter>= speed ) {
+        if(moveCounter >= speed ) {
             checkCollisionAndMove();
             moveCounter=0;
         }
@@ -95,28 +95,29 @@ public class Player {
         switch (direction){
             case "Left":
                 if(xCoord==0){
-                    kill();
+                	xCoord = handler.getWorld().GridWidthHeightPixelCount-1;
+                   // kill();
                 }else{
                     xCoord--;
                 }
                 break;
             case "Right":
                 if(xCoord==handler.getWorld().GridWidthHeightPixelCount-1){
-                    kill();
+                    xCoord = 0;
                 }else{
                     xCoord++;
                 }
                 break;
             case "Up":
                 if(yCoord==0){
-                    kill();
+                    yCoord = handler.getWorld().GridWidthHeightPixelCount-1 ;
                 }else{
                     yCoord--;
                 }
                 break;
             case "Down":
                 if(yCoord==handler.getWorld().GridWidthHeightPixelCount-1){
-                    kill();
+                    yCoord = 0;
                 }else{
                     yCoord++;
                 }
@@ -139,16 +140,23 @@ public class Player {
     public void render(Graphics g,Boolean[][] playeLocation){
         //Random r = new Random();
         Color Green = new Color (0,128,0);
+        Color Red = new Color(250,0,0);
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
                 g.setColor(Green);
 
-                if(playeLocation[i][j]||handler.getWorld().appleLocation[i][j]){
+                if(playeLocation[i][j]){
                     g.fillRect((i*handler.getWorld().GridPixelsize),
                             (j*handler.getWorld().GridPixelsize),
                             handler.getWorld().GridPixelsize,
                             handler.getWorld().GridPixelsize);
                 }
+                if(handler.getWorld().appleLocation[i][j]){
+                	g.setColor(Red);
+                    g.fillRect((i*handler.getWorld().GridPixelsize),
+                            (j*handler.getWorld().GridPixelsize),
+                            handler.getWorld().GridPixelsize,
+                            handler.getWorld().GridPixelsize);
                 g.setColor(new Color(0,0,0));
                 g.setFont(new Font("OCR A Extended",Font.BOLD,35));
                 g.drawString("Score: ", 10, 30);
@@ -156,9 +164,11 @@ public class Player {
             }
         } 
     }
+}
 
     public void Eat(){
         lenght++;
+        speed =-5;
         Tail tail= null;
         handler.getWorld().appleLocation[xCoord][yCoord]=false;
         handler.getWorld().appleOnBoard=false;
