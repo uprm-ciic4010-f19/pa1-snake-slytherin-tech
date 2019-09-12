@@ -22,6 +22,7 @@ public class Player {
 
     public int moveCounter;
     public int speed = 5;
+    public double score = 0;
 
     public String direction;//is your first name one?
 
@@ -132,6 +133,7 @@ public class Player {
         
         if(handler.getWorld().appleLocation[xCoord][yCoord]){
             Eat();
+            score += Math.sqrt(2*score+1);
         }
 
         if(!handler.getWorld().body.isEmpty()) {
@@ -164,7 +166,7 @@ public class Player {
                             handler.getWorld().GridPixelsize);
                 g.setColor(new Color(0,0,0));
                 g.setFont(new Font("OCR A Extended",Font.BOLD,35));
-                g.drawString("Score: ", 10, 30);
+                g.drawString("Score: "+score, 10, 30);
 
             }
         } 
