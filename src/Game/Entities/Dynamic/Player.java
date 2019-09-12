@@ -1,12 +1,13 @@
 package Game.Entities.Dynamic;
 
-import Main.Handler;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.util.Random;
+import java.text.DecimalFormat;
 
-//import Game.GameStates.PauseState;
+import Game.GameStates.State;
+import Main.Handler;
 
 /**
  * Created by AlexVR on 7/2/2018.
@@ -48,9 +49,9 @@ public class Player {
             speed = speed - 1; 
             if (speed < 0) {
             	speed = 0;
+            	}
             }
-            }
-        System.out.println(speed);
+        //System.out.println(speed);
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
             speed = speed + 1; 
             if ( speed > 15) {
@@ -58,7 +59,7 @@ public class Player {
             }
             
         }
-        System.out.println(speed);
+        //System.out.println(speed);
         
         
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)&&direction!="Down"){
@@ -84,7 +85,7 @@ public class Player {
             handler.getWorld().appleOnBoard=true;
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
-            //handler.getGame().gameState.setState(PauseState);
+        	State.setState(handler.getGame().pauseState);
         }
 
     }
@@ -97,7 +98,6 @@ public class Player {
             case "Left":
                 if(xCoord==0){
                 	xCoord = handler.getWorld().GridWidthHeightPixelCount-1;
-                   // kill();
                 }else{
                     xCoord--;
                 }
@@ -159,9 +159,10 @@ public class Player {
                             (j*handler.getWorld().GridPixelsize),
                             handler.getWorld().GridPixelsize,
                             handler.getWorld().GridPixelsize);
-                g.setColor(new Color(0,0,0));
-                g.setFont(new Font("OCR A Extended",Font.BOLD,35));
-                g.drawString("Score: "+score, 10, 30);
+                g.setColor(new Color(250,250,250));
+                g.setFont(new Font("OCR A Extended",Font.BOLD,20));
+                DecimalFormat scoreRounding = new DecimalFormat("#.000");
+                g.drawString("Score: "+scoreRounding.format(score), 10, 30);
 
             }
         } 
@@ -170,7 +171,7 @@ public class Player {
 
     public void Eat(){
         lenght++;
-        speed =-5;
+        speed--;
         Tail tail= null;
         handler.getWorld().appleLocation[xCoord][yCoord]=false;
         handler.getWorld().appleOnBoard=false;
