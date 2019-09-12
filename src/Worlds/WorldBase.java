@@ -26,6 +26,8 @@ public abstract class WorldBase {
     public Player player;
 
     protected Handler handler;
+    
+    public boolean isRotten = false;
 
 
     public Boolean appleOnBoard;
@@ -63,6 +65,14 @@ public abstract class WorldBase {
 
 
 
+    }
+    
+    /////
+    public void isGood() {
+    	if (handler.getWorld().player.steps%3850==0 &&
+    			!handler.getWorld().isRotten) {
+    		handler.getWorld().isRotten = true;
+    	}
     }
 
 }
