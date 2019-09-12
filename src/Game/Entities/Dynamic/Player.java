@@ -1,12 +1,15 @@
 package Game.Entities.Dynamic;
 
-import Main.Handler;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.util.Random;
+import java.text.DecimalFormat;
 
 import Game.GameStates.State;
+import Main.Handler;
+
+//import Game.GameStates.State;
 
 //import Game.GameStates.PauseState;
 
@@ -91,7 +94,7 @@ public class Player {
 			handler.getWorld().appleOnBoard=true;
 		}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
-			//handler.getGame().gameState.setState(PauseState);
+			State.setState(handler.getGame().pauseState);
 		}
 
 
@@ -136,7 +139,8 @@ public class Player {
 
 		if(handler.getWorld().appleLocation[xCoord][yCoord]){
 			Eat();
-			
+			score += Math.sqrt(2*score+1);
+
 		}
 
 		if(!handler.getWorld().body.isEmpty()) {
@@ -144,7 +148,7 @@ public class Player {
 			handler.getWorld().body.removeLast();
 			handler.getWorld().body.addFirst(new Tail(x, y,handler));
 		}
-		
+
 		for (int i = 0; i < handler.getWorld().body.size(); i++) {
 			if(xCoord == handler.getWorld().body.get(i).x &&
 					yCoord == handler.getWorld().body.get(i).y) {
@@ -180,9 +184,10 @@ public class Player {
 							(j*handler.getWorld().GridPixelsize),
 							handler.getWorld().GridPixelsize,
 							handler.getWorld().GridPixelsize);
-					g.setColor(new Color(0,0,0));
-					g.setFont(new Font("OCR A Extended",Font.BOLD,35));
-					g.drawString("Score: "+score, 10, 30);
+					g.setColor(new Color(250,250,250));
+					g.setFont(new Font("OCR A Extended",Font.BOLD,20));
+					DecimalFormat scoreRounding = new DecimalFormat("#.000");
+					g.drawString("Score: "+scoreRounding.format(score), 10, 30);
 
 				}
 			} 
@@ -296,9 +301,9 @@ public class Player {
 		}
 		if(handler.getWorld().isRotten) {
 			score -= Math.sqrt(2*score+1);
-			
-//			lenght--;
-//			handler.getWorld().appleLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
+
+			//			lenght--;
+			//			handler.getWorld().appleLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
 			if(handler.getWorld().body.size()>1) {
 				handler.getWorld().body.removeLast();
 				kill();
@@ -306,14 +311,14 @@ public class Player {
 			else {
 				State.setState(handler.getGame().gameOverState);
 			}
-			
+
 		}
 		else {
-			score += Math.sqrt(2*score+1);
+			//score += Math.sqrt(2*score+1);
 			handler.getWorld().body.addLast(tail);
 			handler.getWorld().playerLocation[tail.x][tail.y] = true;
 		}
-		
+
 	}
 
 	public void kill(){
