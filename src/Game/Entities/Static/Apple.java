@@ -8,6 +8,8 @@ import Main.Handler;
 public class Apple {
 
     private Handler handler;
+    
+    
 
     public int xCoord;
     public int yCoord;
@@ -18,5 +20,5 @@ public class Apple {
         this.yCoord=y;
     }
 
-
+   
 }
