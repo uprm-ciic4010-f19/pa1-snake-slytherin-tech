@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+import Game.GameStates.State;
+
 //import Game.GameStates.PauseState;
 
 /**
@@ -141,6 +143,13 @@ public class Player {
 			handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
 			handler.getWorld().body.removeLast();
 			handler.getWorld().body.addFirst(new Tail(x, y,handler));
+		}
+		
+		for (int i = 0; i < handler.getWorld().body.size(); i++) {
+			if(xCoord == handler.getWorld().body.get(i).x &&
+					yCoord == handler.getWorld().body.get(i).y) {
+				State.setState(handler.getGame().gameOverState);
+			}
 		}
 
 	}
@@ -290,8 +299,14 @@ public class Player {
 			
 //			lenght--;
 //			handler.getWorld().appleLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
-			handler.getWorld().body.removeLast();
-			kill();
+			if(handler.getWorld().body.size()>1) {
+				handler.getWorld().body.removeLast();
+				kill();
+			}
+			else {
+				State.setState(handler.getGame().gameOverState);
+			}
+			
 		}
 		else {
 			score += Math.sqrt(2*score+1);
