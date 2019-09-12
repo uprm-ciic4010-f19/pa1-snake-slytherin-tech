@@ -69,7 +69,7 @@ public abstract class WorldBase {
     
     /////
     public void isGood() {
-    	if (handler.getWorld().player.steps%1000==0 &&
+    	if (handler.getWorld().player.steps%500==0 &&
     			!handler.getWorld().isRotten) {
     		handler.getWorld().isRotten = true;
     	}
