@@ -9,10 +9,6 @@ import java.text.DecimalFormat;
 import Game.GameStates.State;
 import Main.Handler;
 
-//import Game.GameStates.State;
-
-//import Game.GameStates.PauseState;
-
 /**
  * Created by AlexVR on 7/2/2018.
  */
@@ -28,7 +24,7 @@ public class Player {
 	public int steps = 0;
 
 	public int moveCounter;
-	public int speed = 5;
+	public int speed = 5; //initialize speed variable to manipulate the speed of the snake
 	public double score = 0;
 
 	public String direction;//is your first name one?
@@ -47,30 +43,29 @@ public class Player {
 	public void tick(){
 		moveCounter++;
 		steps++;
-		System.out.println(steps); 
 		handler.getWorld().isGood();
 		if(moveCounter >= speed ) {
 			checkCollisionAndMove();
 			moveCounter=0;
 		}
-
+		//Controls for the speed with Equals and Minus keys
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)){
-			speed = speed - 1; 
+			speed -= 1; 
 			if (speed < 0) {
 				speed = 0;
 			}
 		}
 
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
-			speed = speed + 1; 
+			speed += 1; 
 			if ( speed > 15) {
 				speed = 15;
 			}
 
 		}
-		//System.out.println(speed);
 
-
+		//Implemented WASD controls for actual gamers
+		//Also made it so the snake can't go back on itself
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)&&direction!="Down"){
 			direction="Up";
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)&&direction!="Up"){
@@ -91,13 +86,17 @@ public class Player {
 			direction="Right";
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
 			Eat();
-			handler.getWorld().appleOnBoard=true;
+			handler.getWorld().appleOnBoard=true; //This is to make it so another apple doesn't spawn in when N is pressed
 		}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
-			State.setState(handler.getGame().pauseState);
+			State.setState(handler.getGame().pauseState); //Pauses game whenever the Escape key is pressed
 		}
-
-
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_R)){
+			State.setState(handler.getGame().menuState); //Resets the game (starts from the main menu)
+		}
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_BACK_SPACE)){
+			handler.getGame().reStart(); //Restarts the game (from the moment the start button is pressed)
+		}
 	}
 
 	public void checkCollisionAndMove(){
@@ -108,7 +107,6 @@ public class Player {
 		case "Left":
 			if(xCoord==0){
 				xCoord = handler.getWorld().GridWidthHeightPixelCount-1;
-				// kill();
 			}else{
 				xCoord--;
 			}
@@ -140,8 +138,7 @@ public class Player {
 		if(handler.getWorld().appleLocation[xCoord][yCoord]){
 			Eat();
 			score += Math.sqrt(2*score+1);
-
-		}
+		} //Made it so the player only gets points when they actually eat an apple, so as to prevent cheating with N key
 
 		if(!handler.getWorld().body.isEmpty()) {
 			handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
@@ -152,15 +149,14 @@ public class Player {
 		for (int i = 0; i < handler.getWorld().body.size(); i++) {
 			if(xCoord == handler.getWorld().body.get(i).x &&
 					yCoord == handler.getWorld().body.get(i).y) {
-				State.setState(handler.getGame().gameOverState);
+				State.setState(handler.getGame().gameOverState); //Implemented the game over state
 			}
 		}
 
 	}
 
 	public void render(Graphics g,Boolean[][] playeLocation){
-		//Random r = new Random();
-		Color Green = new Color (0,128,0);
+		Color Green = new Color (0,128,0); //Initialized color variables for the snake and the apple, respectively
 		Color Red = new Color(250,0,0);
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
@@ -188,7 +184,8 @@ public class Player {
 					g.setFont(new Font("OCR A Extended",Font.BOLD,20));
 					DecimalFormat scoreRounding = new DecimalFormat("#.000");
 					g.drawString("Score: "+scoreRounding.format(score), 10, 30);
-
+					//Implemented score display with .drawString() method
+					//Changed the score font to be more game-y and made it so only three decimal places are displayed
 				}
 			} 
 		}
@@ -196,8 +193,8 @@ public class Player {
 
 	public void Eat(){
 		lenght++;
-		speed =-5;
-		Tail tail= null;
+		speed =-5; //Made it so the speed changes by the Student ID of Alanis + 1, as per the specs
+		Tail tail= null; //If the speed is too fast, it can be changed to "--" to make it more manageable
 		handler.getWorld().appleLocation[xCoord][yCoord]=false;
 		handler.getWorld().appleOnBoard=false;
 		switch (direction){
@@ -302,8 +299,6 @@ public class Player {
 		if(handler.getWorld().isRotten) {
 			score -= Math.sqrt(2*score+1);
 
-			//			lenght--;
-			//			handler.getWorld().appleLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
 			if(handler.getWorld().body.size()>1) {
 				handler.getWorld().body.removeLast();
 				kill();
@@ -314,7 +309,6 @@ public class Player {
 
 		}
 		else {
-			//score += Math.sqrt(2*score+1);
 			handler.getWorld().body.addLast(tail);
 			handler.getWorld().playerLocation[tail.x][tail.y] = true;
 		}

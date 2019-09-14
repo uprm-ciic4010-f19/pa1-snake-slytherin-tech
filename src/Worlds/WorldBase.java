@@ -56,7 +56,7 @@ public abstract class WorldBase {
     public void render(Graphics g){
 
         for (int i = 0; i <= 800; i = i + GridPixelsize) {
-        	Color invisible = new Color(0,0,0,0);
+        	Color invisible = new Color(0,0,0,0); //Made grid lines invisible by adding alpha value of 0
             g.setColor(invisible);
             g.drawLine(0, i, handler.getWidth() , i);
             g.drawLine(i,0,i,handler.getHeight());
@@ -68,7 +68,7 @@ public abstract class WorldBase {
     }
     
     /////
-    public void isGood() {
+    public void isGood() { //Implemented isGood method to make rotten apples
     	if (handler.getWorld().player.steps%500==0 &&
     			!handler.getWorld().isRotten) {
     		handler.getWorld().isRotten = true;
