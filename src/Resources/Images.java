@@ -14,6 +14,7 @@ public class Images {
     public static BufferedImage[] butstart;
     public static BufferedImage title;
     public static BufferedImage Pause;
+    public static BufferedImage Gameover;
     public static BufferedImage[] Resume;
     public static BufferedImage[] BTitle;
     public static BufferedImage[] Options;
@@ -25,13 +26,14 @@ public class Images {
         Resume = new BufferedImage[2];
         BTitle = new BufferedImage[2];
         Options = new BufferedImage[2];
-
+        
         try {
 
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/BackgroundTitle.jpeg"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pausa2.jpeg"));
+            Gameover = ImageIO.read(getClass().getResourceAsStream("/Buttons/GameOver.jpg"));
             Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Resume.png"));
-            Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeP.png"));
+            Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Resume.png"));
             BTitle[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitle.png"));
             BTitle[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitleP.png"));
             Options[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Options.png"));
@@ -39,7 +41,7 @@ public class Images {
             butstart[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/IMG_1048.png"));//normbut
             butstart[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/IMG_1049.png"));//hoverbut
             butstart[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/IMG_1050.png"));//clickbut
-
+           
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
 
 
