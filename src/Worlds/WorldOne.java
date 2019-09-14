@@ -15,8 +15,8 @@ public class WorldOne extends WorldBase{
         super(handler);
 
         //has to be a number bigger than 20 and even
-        GridWidthHeightPixelCount = 60;
-        GridPixelsize = (600/GridWidthHeightPixelCount);
+        GridWidthHeightPixelCount = 60; //Changed grid size to 60x60
+        GridPixelsize = (600/GridWidthHeightPixelCount); //Made GridPixelSize compatible with window size
         playerLocation = new Boolean[GridWidthHeightPixelCount][GridWidthHeightPixelCount];
         appleLocation = new Boolean[GridWidthHeightPixelCount][GridWidthHeightPixelCount];
 
@@ -42,7 +42,7 @@ public class WorldOne extends WorldBase{
             handler.getWorld().isRotten = false;
             apple = new Apple(handler,appleX,appley);
             appleLocation[appleX][appley]=true;
-
+            //Implemented rotten apples with the Tick Method
         }
     }
 

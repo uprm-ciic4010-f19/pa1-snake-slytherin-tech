@@ -14,13 +14,13 @@ public class GameOverState extends State {
 
     private int count = 0;
     private UIManager uiManager;
-
+    //Created the game over state reusing the code from the pause state
     public GameOverState(Handler handler) {
         super(handler);
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUimanager(uiManager);
 
-
+        //Got rid of the options and resume buttons and changed the location of the Title button
         uiManager.addObjects(new UIImageButton(56, (25+(64+16))+(64+16), 128, 64, Images.BTitle, () -> {
             handler.getMouseManager().setUimanager(null);
             State.setState(handler.getGame().menuState);

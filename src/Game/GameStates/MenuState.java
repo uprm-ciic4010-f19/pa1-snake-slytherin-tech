@@ -21,8 +21,8 @@ public class MenuState extends State {
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUimanager(uiManager);
 
-
-        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-64, handler.getHeight()/2-32, 128, 64, Images.butstart, new ClickListlener() {
+        //Made the start button bigger and changed its location
+        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-84, handler.getHeight()/2+162, 170, 64, Images.butstart, new ClickListlener() {
             @Override
             public void onClick() {
                 handler.getMouseManager().setUimanager(null);
